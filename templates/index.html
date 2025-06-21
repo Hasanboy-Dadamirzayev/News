@@ -1,0 +1,542 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+       <!-- Features Start -->
+<div class="container-fluid features mb-5">
+    <div class="container py-5">
+        <div class="row g-4">
+            {% for article in articles %}
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="row g-4 align-items-center features-item">
+                    <div class="col-4">
+                        <div class="rounded-circle position-relative">
+                            <div class="overflow-hidden rounded-circle">
+                                <img src="{{ article.image.url }}" class="img-zoomin img-fluid rounded-circle w-100" alt="">
+                            </div>
+                            <span class="rounded-circle border border-2 border-white bg-primary btn-sm-square text-white position-absolute" style="top: 10%; right: -10px;">3</span>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="features-content d-flex flex-column">
+                            <p class="text-uppercase mb-2">{{ article.category }}</p>
+                            <a href="{% url 'article-details' slug=article.slug %}" class="h6">
+                                {{ article.title|truncatechars:30 }}
+                            </a>
+                            <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>{{ article.created_at|date:'d.m.y' }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Features End -->
+
+
+        <!-- Main Post Section Start -->
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-4">
+                    <div class="col-lg-7 col-xl-8 mt-0">
+                        <div class="position-relative overflow-hidden rounded">
+                            <img src="{{ articles.0.image.url }}" class="img-fluid rounded img-zoomin w-100" alt="">
+                            <div class="d-flex justify-content-center px-4 position-absolute flex-wrap" style="bottom: 10px; left: 0;">
+                                <a href="#" class="text-white me-3 link-hover"><i class="fa fa-clock"></i> {{articles.0.reading_time }} o'qiladi</a>
+                                <a href="#" class="text-white me-3 link-hover"><i class="fa fa-eye"></i> {{ articles.0.view }}</a>
+                                <a href="#" class="text-white me-3 link-hover"><i class="fa fa-comment-dots"></i> {{ articles.0.comments }}</a>
+                                <a href="#" class="text-white link-hover"><i class="fa fa-calendar-day"></i> {{ articles.0.created_at|date:'d.m.y'}}</a>
+                            </div>
+                        </div>
+                        <div class="border-bottom py-3">
+                            {% if articles.0.slug %}
+                         <a href="{% url 'article-details' slug=articles.0.slug %}">
+                             <h1>{{ articles.0.title }}</h1>
+                        </a>
+                        {% else %}
+                            <h1>{{ articles.0.title }} (slug mavjud emas)</h1>
+                        {% endif %}
+
+                        </div>
+                        <p class="mt-3 mb-4">{{ articles.0.intro }}
+                        </p>
+                        <div class="bg-light p-4 rounded">
+                            <div class="news-2">
+                                <h3 class="mb-4">Top Story</h3>
+                            </div>
+                            {% for i in top_article %}
+                            <div class="row g-4 align-items-center">
+                                <div class="col-md-6">
+                                    <div class="rounded overflow-hidden">
+                                        <img src="{{i.image.url}}" class="img-fluid rounded img-zoomin w-100" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex flex-column">
+                                        <a href="#" class="h3">{{ i.title}}</a>
+                                        <p class="mb-0 fs-5"><i class="fa fa-clock">{{i.reading_time}}</i> </p>
+                                        <p class="mb-0 fs-5"><i class="fa fa-eye">{{i.view}}</i></p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-xl-4">
+
+                       <div class="bg-light rounded p-4 pt-0">
+                           {% for article in articles %}
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <div class="rounded overflow-hidden">
+                                        <img src="{{article.image.url}}" class="img-fluid rounded img-zoomin w-100" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+
+                                    <div class="d-flex flex-column">
+                                        <a href="#" class="h4 mb-2">{{ article.title }}</a>
+                                        <p class="fs-5 mb-0"><i class="fa fa-clock"> {{ article.reading_time }}</i> </p>
+                                        <p class="fs-5 mb-0"><i class="fa fa-eye">{{ article.view }}</i></p>
+                                    </div>
+
+                                </div>
+                            </div>
+                           {% endfor %}
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main Post Section End -->
+
+
+        <!-- Banner Start -->
+        <div class="container-fluid py-5 my-5" style="background: linear-gradient(rgba(202, 203, 185, 1), rgba(202, 203, 185, 1));">
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-7">
+                        <h1 class="mb-4 text-primary">Newsers</h1>
+                        <h1 class="mb-4">Get Every Weekly Updates</h1>
+                        <p class="text-dark mb-4 pb-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                        </p>
+                        <div class="position-relative mx-auto">
+                            <input class="form-control w-100 py-3 rounded-pill" type="email" placeholder="Your Busines Email">
+                            <button type="submit" class="btn btn-primary py-3 px-5 position-absolute rounded-pill text-white h-100" style="top: 0; right: 0;">Subscribe Now</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="rounded">
+                            <img src="{% static 'img/banner-img.jpg' %}" class="img-fluid rounded w-100 rounded" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Banner End -->
+
+
+        <!-- Latest News Start -->
+        <div class="container-fluid latest-news py-5">
+            {% for new in latest_news %}
+            <div class="container py-5">
+                <h2 class="mb-4">Latest News</h2>
+                <div class="latest-news-carousel owl-carousel">
+                    <div class="latest-news-item">
+                        <div class="bg-light rounded">
+                            <div class="rounded-top overflow-hidden">
+                                <img src="{{new.image.url}}" class="img-zoomin img-fluid rounded-top w-100" alt="">
+                            </div>
+                            <div class="d-flex flex-column p-4">
+                                <a href="#" class="h4">{{new.title}}</a>
+                                <div class="d-flex justify-content-between">
+                                    <a href="#" class="small text-body link-hover">{{new.author}}</a>
+                                    <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>{{new.created_at}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- Latest News End -->
+
+
+        <!-- Most Populer News Start -->
+        <div class="container-fluid populer-news py-5">
+            <div class="container py-5">
+                <div class="tab-class mb-4">
+                    <div class="row g-4">
+                        <div class="col-lg-8 col-xl-9">
+                            <div class="d-flex flex-column flex-md-row justify-content-md-between border-bottom mb-4">
+                                <h1 class="mb-4">What’s New</h1>
+                                <ul class="nav nav-pills d-inline-flex text-center">
+                                 <ul class="nav">
+                                    {% for article in articles %}
+                                    <li class="nav-item mb-3">
+                                        <a class="d-flex py-2 bg-light rounded-pill active me-2" data-bs-toggle="pill" href="{% url 'article-details' slug=article.slug %}">
+                                            <span class="text-dark" style="width: 100px;">{{ article.category }}</span>
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+
+                                <div class="tab-content mb-4">
+                                    {% for new in news %}
+                                    <div id="tab-{{ forloop.counter }}" class="tab-pane fade show p-0 {% if forloop.first %}active{% endif %}">
+                                        <div class="row g-4">
+                                            <div class="col-lg-8">
+                                                <div class="position-relative rounded overflow-hidden">
+                                                    <img src="{{ new.image.url }}" class="img-zoomin img-fluid rounded w-100" alt="">
+                                                    <div class="position-absolute text-white px-4 py-2 bg-primary rounded" style="top: 20px; right: 20px;">
+                                                        {{ new.category }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="my-4">
+                                                    <a href="{% url 'article-details' slug=new.slug %}" class="h4">{{ new.title }}</a>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <a href="#" class="text-dark link-hover me-3"><i class="fa fa-clock"></i>{{new.reading_time}} o'qiladi</a>
+                                                    <a href="#" class="text-dark link-hover me-3"><i class="fa fa-eye"></i>{{new.view}}</a>
+                                                    <a href="#" class="text-dark link-hover me-3"><i class="fa fa-comment-dots"></i>{{new.comment}}</a>
+                                                    <a href="#" class="text-dark link-hover"><i class="fa fa-calendar-day"></i>{{new.created_at}}</a>
+                                                </div>
+                                                <p class="my-4">{{ new.intro }}</p>
+                                            </div>
+
+                                            <div class="col-lg-4">
+                                                <div class="row g-4">
+                                                    {% for article in articles %}
+                                                    <div class="col-12">
+                                                        <div class="row g-4 align-items-center">
+                                                            <div class="col-5">
+                                                                <div class="overflow-hidden rounded">
+                                                                    <img src="{{ article.image.url }}" class="img-zoomin img-fluid rounded w-100" alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-7">
+                                                                <div class="features-content d-flex flex-column">
+                                                                    <p class="text-uppercase mb-2">{{ article.category }}</p>
+                                                                    <a href="{% url 'article-details' slug=article.slug %}" class="h6">{{ article.title }}</a>
+                                                                    <small class="text-body d-block">
+                                                                        <i class="fas fa-calendar-alt me-1"></i>{{ article.created_at|date:"d.m.Y" }}
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+
+                                <div id="tab-2" class="tab-pane fade show p-0">
+                                    {% for article in articles %}
+                                    <div class="row g-4">
+                                        <div class="col-lg-8">
+                                            <div class="position-relative rounded overflow-hidden">
+                                                <img src="{{article.image.url}}" class="img-zoomin img-fluid rounded w-100" alt="">
+                                                <div class="position-absolute text-white px-4 py-2 bg-primary rounded" style="top: 20px; right: 20px;">
+                                                    {{article.category}}
+                                                </div>
+                                            </div>
+                                            <div class="my-3">
+                                                <a href="#" class="h4">{{article.title}}</a>
+                                            </div>
+                                            <p class="mt-4">{{article.intro}}
+                                            </p>
+                                            <div class="d-flex justify-content-between">
+                                                <a href="#" class="text-dark link-hover me-3"><i class="fa fa-clock"></i>{{article.reading_time}} o'qiladi</a>
+                                                <a href="#" class="text-dark link-hover me-3"><i class="fa fa-eye"></i>{{article.view}}</a>
+                                                <a href="#" class="text-dark link-hover me-3"><i class="fa fa-comment-dots"></i>{{article.comments}}</a>
+                                                <a href="#" class="text-dark link-hover"><i class="fa fa-arrow-up"></i>{{article.created_at}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+
+                            </div>
+                            {% for top in top_article %}
+                            <div class="border-bottom mb-4">
+                                <h2 class="my-4">Most Views News</h2>
+                            </div>
+                            <div class="whats-carousel owl-carousel">
+                                <div class="latest-news-item">
+                                    <div class="bg-light rounded">
+                                        <div class="rounded-top overflow-hidden">
+                                            <img src="{{top.image.url}}" class="img-zoomin img-fluid rounded-top w-100" alt="">
+                                        </div>
+                                        <div class="d-flex flex-column p-4">
+                                            <a href="#" class="h4">{{top.title}}</a>
+                                            <div class="d-flex justify-content-between">
+                                                <a href="#" class="small text-body link-hover">{{top.author}}</a>
+                                                <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>{{top.created_at}}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                        <div class="col-lg-4 col-xl-3">
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <div class="p-3 rounded border">
+                                        <h4 class="mb-4">Stay Connected</h4>
+                                        <div class="row g-4">
+                                            <div class="col-12">
+                                                <a href="#" class="w-100 rounded btn btn-primary d-flex align-items-center p-3 mb-2">
+                                                    <i class="fab fa-facebook-f btn btn-light btn-square rounded-circle me-3"></i>
+                                                    <span class="text-white">13,977 Fans</span>
+                                                </a>
+                                                <a href="#" class="w-100 rounded btn btn-danger d-flex align-items-center p-3 mb-2">
+                                                    <i class="fab fa-twitter btn btn-light btn-square rounded-circle me-3"></i>
+                                                    <span class="text-white">21,798 Follower</span>
+                                                </a>
+                                                <a href="#" class="w-100 rounded btn btn-warning d-flex align-items-center p-3 mb-2">
+                                                    <i class="fab fa-youtube btn btn-light btn-square rounded-circle me-3"></i>
+                                                    <span class="text-white">7,999 Subscriber</span>
+                                                </a>
+                                                <a href="#" class="w-100 rounded btn btn-dark d-flex align-items-center p-3 mb-2">
+                                                    <i class="fab fa-instagram btn btn-light btn-square rounded-circle me-3"></i>
+                                                    <span class="text-white">19,764 Follower</span>
+                                                </a>
+                                                <a href="#" class="w-100 rounded btn btn-secondary d-flex align-items-center p-3 mb-2">
+                                                    <i class="bi-cloud btn btn-light btn-square rounded-circle me-3"></i>
+                                                    <span class="text-white">31,999 Subscriber</span>
+                                                </a>
+                                                <a href="#" class="w-100 rounded btn btn-warning d-flex align-items-center p-3 mb-4">
+                                                    <i class="fab fa-dribbble btn btn-light btn-square rounded-circle me-3"></i>
+                                                    <span class="text-white">37,999 Subscriber</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <h4 class="my-4">Popular News</h4>
+                                        <div class="row g-4">
+                                            <div class="col-12">
+                                                {% for article in articles %}
+                                                <div class="row g-4 align-items-center features-item">
+                                                    <div class="col-4">
+                                                        <div class="rounded-circle position-relative">
+                                                            <div class="overflow-hidden rounded-circle">
+                                                                <img src="{{article.image.url}}" class="img-zoomin img-fluid rounded-circle w-100" alt="">
+                                                            </div>
+                                                            <span class="rounded-circle border border-2 border-white bg-primary btn-sm-square text-white position-absolute" style="top: 10%; right: -10px;">3</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="features-content d-flex flex-column">
+                                                            <p class="text-uppercase mb-2">{{article.category}}</p>
+                                                            <a href="{% url 'article-details' slug=article.slug %}" class="h6">
+                                                                {{article.title}}
+                                                            </a>
+                                                            <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>{{article.created_at}}</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <a href="#" class="link-hover btn border border-primary rounded-pill text-dark w-100 py-3 mb-4">View More</a>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="border-bottom my-3 pb-3">
+
+                                                    <h4 class="mb-0">Trending Tags</h4>
+                                                </div>
+                                                {% for article in articles %}
+                                                <ul class="nav nav-pills d-inline-flex text-center mb-4">
+                                                    <li class="nav-item mb-3">
+                                                        <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
+                                                            <span class="text-dark link-hover" style="width: 90px;">{{article.category}}</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                {% endfor %}
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Most Populer News End -->
+
+
+        <!-- Footer Start -->
+        <div class="container-fluid bg-dark footer py-5">
+            <div class="container py-5">
+                <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+                    <div class="row g-4">
+                        <div class="col-lg-3">
+                            <a href="#" class="d-flex flex-column flex-wrap">
+                                <p class="text-white mb-0 display-6">Newers</p>
+                                <small class="text-light" style="letter-spacing: 11px; line-height: 0;">Newspaper</small>
+                            </a>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="d-flex position-relative rounded-pill overflow-hidden">
+                                <input class="form-control border-0 w-100 py-3 rounded-pill" type="email" placeholder="example@gmail.com">
+                                <button type="submit" class="btn btn-primary border-0 py-3 px-5 rounded-pill text-white position-absolute" style="top: 0; right: 0;">Subscribe Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-5">
+                    <div class="col-lg-6 col-xl-3">
+                        <div class="footer-item-1">
+                            <h4 class="mb-4 text-white">Get In Touch</h4>
+                            <p class="text-secondary line-h">Address: <span class="text-white">123 Streat, New York</span></p>
+                            <p class="text-secondary line-h">Email: <span class="text-white">Example@gmail.com</span></p>
+                            <p class="text-secondary line-h">Phone: <span class="text-white">+0123 4567 8910</span></p>
+                            <div class="d-flex line-h">
+                                <a class="btn btn-light me-2 btn-md-square rounded-circle" href=""><i class="fab fa-twitter text-dark"></i></a>
+                                <a class="btn btn-light me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f text-dark"></i></a>
+                                <a class="btn btn-light me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube text-dark"></i></a>
+                                <a class="btn btn-light btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in text-dark"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xl-3">
+                        <div class="footer-item-2">
+                            <div class="d-flex flex-column mb-4">
+                                <h4 class="mb-4 text-white">Recent Posts</h4>
+                                <a href="#">
+                                    <div class="d-flex align-items-center">
+                                        <div class="rounded-circle border border-2 border-primary overflow-hidden">
+                                            <img src="img/footer-1.jpg" class="img-zoomin img-fluid rounded-circle w-100" alt="">
+                                        </div>
+                                        <div class="d-flex flex-column ps-4">
+                                            <p class="text-uppercase text-white mb-3">Life Style</p>
+                                            <a href="#" class="h6 text-white">
+                                                Get the best speak market, news.
+                                            </a>
+                                            <small class="text-white d-block"><i class="fas fa-calendar-alt me-1"></i> Dec 9, 2024</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="#">
+                                    <div class="d-flex align-items-center">
+                                        <div class="rounded-circle border border-2 border-primary overflow-hidden">
+                                            <img src="img/footer-2.jpg" class="img-zoominimg-fluid rounded-circle w-100" alt="">
+                                        </div>
+                                        <div class="d-flex flex-column ps-4">
+                                            <p class="text-uppercase text-white mb-3">Sports</p>
+                                            <a href="#" class="h6 text-white">
+                                                Get the best speak market, news.
+                                            </a>
+                                            <small class="text-white d-block"><i class="fas fa-calendar-alt me-1"></i> Dec 9, 2024</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xl-3">
+                        <div class="d-flex flex-column text-start footer-item-3">
+                            <h4 class="mb-4 text-white">Categories</h4>
+                            <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Sports</a>
+                            <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Magazine</a>
+                            <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Lifestyle</a>
+                            <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Politician</a>
+                            <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Technology</a>
+                            <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Intertainment</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xl-3">
+                        <div class="footer-item-4">
+                            <h4 class="mb-4 text-white">Our Gallary</h4>
+                            <div class="row g-2">
+                                <div class="col-4">
+                                    <div class="rounded overflow-hidden">
+                                        <img src="img/footer-1.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
+                                    </div>
+                               </div>
+                               <div class="col-4">
+                                    <div class="rounded overflow-hidden">
+                                        <img src="img/footer-2.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
+                                    </div>
+                               </div>
+                                <div class="col-4">
+                                    <div class="rounded overflow-hidden">
+                                        <img src="img/footer-3.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
+                                    </div>
+                               </div>
+                                <div class="col-4">
+                                    <div class="rounded overflow-hidden">
+                                        <img src="img/footer-4.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
+                                    </div>
+                               </div>
+                                <div class="col-4">
+                                    <div class="rounded overflow-hidden">
+                                        <img src="img/footer-5.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
+                                    </div>
+                               </div>
+                               <div class="col-4">
+                                <div class="rounded overflow-hidden">
+                                    <img src="img/footer-6.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
+                                </div>
+                           </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright bg-dark py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
+                    </div>
+                    <div class="col-md-6 my-auto text-center text-md-end text-white">
+                        <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                        <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                        <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary border-2 border-white rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+
+        <!-- JavaScript Libraries -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="/static/lib/easing/easing.min.js"></script>
+        <script src="/static/lib/waypoints/waypoints.min.js"></script>
+        <script src="/static/lib/owlcarousel/owl.carousel.min.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="{% static 'js/main.js' %}"></script>
+    </body>
+
+</html>
+
+{% endblock %}
